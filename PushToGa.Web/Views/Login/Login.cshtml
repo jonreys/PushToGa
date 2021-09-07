@@ -1,0 +1,85 @@
+﻿@model PushToGa.Web.Models.AccountFormModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Login";
+    ViewData["CurrentPage"] = "Login";
+}
+
+@section Scripts{
+    <!-- Google Analytics -->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-206690197-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js"></script>
+    <!-- End Google Analytics -->
+}
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section"></h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-5">
+                <div class="login-wrap p-4 p-md-5">
+                    <div class="icon d-flex align-items-center justify-content-center">
+                        <span class="fa fa-user-o"></span>
+                    </div>
+                    <h3 class="text-center mb-4">Sign In</h3>
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "form1" }))
+                    {
+                        <form id="form1" class="login-form">
+                            @if (ViewBag.LoginMsg != "")
+                            {
+                                <div style="color: red; font-weight:bold;">
+                                    @ViewBag.LoginMsg
+                                </div>
+                            }
+                            <div class="form-group">
+                                <input name="Username" type="text" class="form-control rounded-left" placeholder="Username" required>
+                            </div>
+                            <div class="form-group d-flex">
+                                <input name="Password" type="password" class="form-control rounded-left" placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
+                            </div>
+                            <div class="form-group d-md-flex">
+                                <div class="w-50 text-md-left">
+                                    <a href="~/Account/Forget">Forgot Password</a>
+                                </div>
+                            </div>
+                            <div class="form-group d-md-flex">
+                                <div class="w-50">
+                                    <label class="text-center">
+                                        Not yet Register?
+                                    </label>
+                                </div>
+                                <div class="w-50 text-md-right">
+                                    <a href="~/Registration/Register">Register</a>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/popper.js"></script>
+
+
+
+

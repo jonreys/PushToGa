@@ -122,11 +122,5 @@ namespace PushToGa.Web.Controllers
 
             return results;
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
     }
 }

@@ -8,31 +8,41 @@ namespace PushToGa.Web.Services
 {
     public class LoginService : ILoginService
     {
-        public async Task<UserOutput> LoginAsync(string username, string password)
+        public async Task<UserModel> LoginAsync(string username, string password)
         {
-            var result = new UserOutput();
+            var result = new UserModel();
             try
             {
                 /// Create a Fake Login Procedure
-                if (username == "admin")
+                if (username == "Admin")
                 {
                     if (password == "Pa$$w0rd")
                     {
-                        Random rnd = new Random();
-                        int card = rnd.Next(1000);     // creates a number between 0 and 1000
-                        result.Id = card;
+                        result.Id = 1045;
                         result.Fullname = "Jonathan Ramos Reyes";
                         result.EmailAddress = "jonathan_reyes@data3.com.au";
                         result.Token = Guid.NewGuid().ToString();
-                        result.Username = username;                        
-                        result.Roles.Add("Administrator");
+                        result.Username = username;
+                        result.Status = "Active";
+                        result.Roles = new List<string> 
+                        {
+                            "Administrator"
+                        };                        
+                        result.Company = new CompanyModel
+                        {
+                            CompanyId = 560,
+                            CompanyName = "ABC WLL"
+                        };                        
                     }
+                    else
+                        result.Status = "NoMatch";
                 }
                 else
-                    result = null;
+                    result.Status = "NoUser";
             }
             catch (Exception ex)
             {
+                result.Status = "APIError";
                 throw new Exception(ex.Message);
             }
             await Task.CompletedTask;

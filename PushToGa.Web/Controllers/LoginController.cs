@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using PushToGa.Web.Helpers;
 using PushToGa.Web.Models;
 using PushToGa.Web.Services;
 using System;
@@ -16,9 +18,11 @@ namespace PushToGa.Web.Controllers
     public class LoginController : Controller
     {
         private readonly ILoginService loginService;
-        public LoginController(ILoginService loginService)
+        private readonly IConfiguration configuration;
+        public LoginController(ILoginService loginService, IConfiguration configuration)
         {
             this.loginService = loginService;
+            this.configuration = configuration;
         }
                 
         [AllowAnonymous]
@@ -30,27 +34,44 @@ namespace PushToGa.Web.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Login(AccountFormModel model)
-        {            
+        {
+            var trackingId = configuration.GetSection("TrackingId").Value;
+            
             var result = await loginService.LoginAsync(model.Username, model.Password);
             if (result != null)
             {
                 if (result.Status == "Active")
                 {
-                    if (result.IsOperator.HasValue && result.IsOperator.Value == false)
+                    var googleAnalyticsHelper = new GoogleAnalyticsHelper(trackingId, result.Id.ToString());
+                    var response = googleAnalyticsHelper.TrackEvent("Authentication",
+                        "Login(Submit)",
+                        $"User ID: { result.Id.ToString() } \r\n" +
+                        $"User Name: { result.Username } \r\n" +
+                        $"Role: { result.Roles[0] } \r\n" +
+                        $"Full Name: { result.Fullname } \r\n" +
+                        $"Company ID: { result.Company.CompanyId } \r\n" +
+                        $"Company Name: { result.Company.CompanyName } \r\n").Result;
+
+                    if (!response.IsSuccessStatusCode)
                     {
-                        ViewBag.Name = result.Fullname;
-                        ViewBag.Initial = this.GetNameInitials(result.Fullname);
-                        ViewBag.UserId = result.Id;
-                        await StoreAuthentication(result);
-                        return Redirect("~/Home/Index");
+                        new Exception("something went wrong");
                     }
+
+                    ViewBag.FullName = result.Fullname;
+                    ViewBag.UserName = result.Username;
+                    ViewBag.Initial = this.GetNameInitials(result.Fullname);
+                    ViewBag.UserId = result.Id;
+                    ViewBag.CompanyId = result.Company.CompanyId;
+                    ViewBag.CompanyName = result.Company.CompanyName;
+
+                    return Redirect("~/Home/Index");
                 }
-                else if (result.Status == "LockedOut")
-                    return Redirect("~/Account/AccountLocked");
                 else if (result.Status == "NoMatch")
                     ViewBag.LoginMsg = "Invalid Password";
                 else if (result.Status == "NoUser")
                     ViewBag.LoginMsg = "Invalid User name";
+                else if (result.Status == "APIError")
+                    ViewBag.LoginMsg = "Oooooops, Service Error";
                 return View("Login");
             }
             else
@@ -78,62 +99,5 @@ namespace PushToGa.Web.Controllers
 
             return initials;
         }
-
-        private async Task<bool> StoreAuthentication(UserOutput result)
-        {
-            var authenticated = false;
-            //store Token
-            HttpContext.Session.SetString("UserToken", result.Token);
-            var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, result.Username),
-                        new Claim("FullName", result.Fullname),
-                    };
-
-            if (result.Roles.Any())
-            {
-                result.Roles.ForEach(e =>
-                {
-                    claims.Add(new Claim(ClaimTypes.Role, e));
-                });
-            }
-
-            var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            var authProperties = new AuthenticationProperties
-            {
-                //AllowRefresh = <bool>,
-                // Refreshing the authentication session should be allowed.
-
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60),
-                // The time at which the authentication ticket expires. A 
-                // value set here overrides the ExpireTimeSpan option of 
-                // CookieAuthenticationOptions set with AddCookie.
-
-                //IsPersistent = true,
-                // Whether the authentication session is persisted across 
-                // multiple requests. When used with cookies, controls
-                // whether the cookie's lifetime is absolute (matching the
-                // lifetime of the authentication ticket) or session-based.
-
-                //IssuedUtc = <DateTimeOffset>,
-                // The time at which the authentication ticket was issued.
-
-                //RedirectUri = <string>
-                // The full path or absolute URI to be used as an http 
-                // redirect response value.
-            };
-
-            await HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(claimsIdentity),
-                    authProperties);
-            authenticated = true;
-
-            return authenticated;
-        }
-
-
     }
 }

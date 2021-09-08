@@ -8,6 +8,6 @@ namespace PushToGa.Web.Services
 {
     public interface ILoginService
     {
-        Task<UserOutput> LoginAsync(string username, string password);
+        Task<UserModel> LoginAsync(string username, string password);
     }
 }

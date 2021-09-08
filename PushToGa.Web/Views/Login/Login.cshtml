@@ -18,7 +18,6 @@
         ga('create', 'UA-206690197-1', 'auto');
         ga('send', 'pageview');
     </script>
-    <script src="https://www.google-analytics.com/analytics.js"></script>
     <!-- End Google Analytics -->
 }
 
@@ -36,7 +35,7 @@
                         <span class="fa fa-user-o"></span>
                     </div>
                     <h3 class="text-center mb-4">Sign In</h3>
-                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "form1" }))
+                    @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "form1" }))
                     {
                         <form id="form1" class="login-form">
                             @if (ViewBag.LoginMsg != "")
@@ -53,21 +52,6 @@
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
-                            </div>
-                            <div class="form-group d-md-flex">
-                                <div class="w-50 text-md-left">
-                                    <a href="~/Account/Forget">Forgot Password</a>
-                                </div>
-                            </div>
-                            <div class="form-group d-md-flex">
-                                <div class="w-50">
-                                    <label class="text-center">
-                                        Not yet Register?
-                                    </label>
-                                </div>
-                                <div class="w-50 text-md-right">
-                                    <a href="~/Registration/Register">Register</a>
-                                </div>
                             </div>
                         </form>
                     }

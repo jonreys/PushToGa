@@ -16,29 +16,35 @@ namespace PushToGa.Web.Services
                 /// Create a Fake Login Procedure
                 if (username == "Admin")
                 {
-                    if (password == "Pa$$w0rd")
+                    if (password == "1234")
                     {
                         result.Id = 1045;
-                        result.Fullname = "Jonathan Ramos Reyes";
-                        result.EmailAddress = "jonathan_reyes@data3.com.au";
-                        result.Token = Guid.NewGuid().ToString();
                         result.Username = username;
                         result.Status = "Active";
-                        result.Roles = new List<string> 
-                        {
-                            "Administrator"
-                        };                        
-                        result.Company = new CompanyModel
-                        {
-                            CompanyId = 560,
-                            CompanyName = "ABC WLL"
-                        };                        
+                        result.IsInternalUser = true;
                     }
                     else
                         result.Status = "NoMatch";
                 }
                 else
-                    result.Status = "NoUser";
+                {                    
+                    /// Second User
+                    if (username == "Support")
+                    {
+                        if (password == "1234")
+                        {
+                            result.Id = 1189;
+                            result.Username = username;
+                            result.Status = "Active";
+                            result.IsInternalUser = false;
+
+                        }
+                        else
+                            result.Status = "NoMatch";
+                    }
+                    else
+                        result.Status = "NoUser";
+                }
             }
             catch (Exception ex)
             {
@@ -49,5 +55,6 @@ namespace PushToGa.Web.Services
 
             return result;
         }
+
     }
 }

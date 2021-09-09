@@ -24,13 +24,15 @@ namespace PushToGa.Web.Controllers
 
         public IActionResult Index()
         {
+            var userId = ViewBag.UserId;
             var result = new List<ReportResultModel>();
             try
             {
                 #region Prepare Report Request object 
                 var dateRange = new DateRange
                 {
-                    StartDate = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"),
+                    //StartDate = DateTime.UtcNow.AddDays(-7).ToString("yyyy-MM-dd"),
+                    StartDate = DateTime.UtcNow.ToString("yyyy-MM-dd"),
                     EndDate = DateTime.UtcNow.ToString("yyyy-MM-dd")
                 };              
                 var metrics = new List<Metric> { new Metric { Expression = "ga:sessions", Alias = "Sessions" } };

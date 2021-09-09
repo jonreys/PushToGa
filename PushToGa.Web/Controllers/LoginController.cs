@@ -44,25 +44,16 @@ namespace PushToGa.Web.Controllers
                 {
                     var googleAnalyticsHelper = new GoogleAnalyticsHelper(trackingId, result.Id.ToString());
                     var response = googleAnalyticsHelper.TrackEvent("Authentication",
-                        "Login(Submit)",
-                        $"User ID: { result.Id.ToString() } \r\n" +
-                        $"User Name: { result.Username } \r\n" +
-                        $"Role: { result.Roles[0] } \r\n" +
-                        $"Full Name: { result.Fullname } \r\n" +
-                        $"Company ID: { result.Company.CompanyId } \r\n" +
-                        $"Company Name: { result.Company.CompanyName } \r\n").Result;
+                        "Login",
+                        $"User ID - { result.Id.ToString() } " +
+                        $"- { result.Username } " +
+                        $"- Internal ({ result.IsInternalUser })").Result;                    
 
                     if (!response.IsSuccessStatusCode)
                     {
                         new Exception("something went wrong");
                     }
-
-                    ViewBag.FullName = result.Fullname;
-                    ViewBag.UserName = result.Username;
-                    ViewBag.Initial = this.GetNameInitials(result.Fullname);
-                    ViewBag.UserId = result.Id;
-                    ViewBag.CompanyId = result.Company.CompanyId;
-                    ViewBag.CompanyName = result.Company.CompanyName;
+                    ViewBag.UserId = result.Id.ToString();
 
                     return Redirect("~/Home/Index");
                 }

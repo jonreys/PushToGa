@@ -43,11 +43,9 @@ namespace PushToGa.Web.Controllers
                 if (result.Status == "Active")
                 {
                     var googleAnalyticsHelper = new GoogleAnalyticsHelper(trackingId, result.Id.ToString());
-                    var response = googleAnalyticsHelper.TrackEvent("Authentication",
-                        "Login",
-                        $"User ID - { result.Id.ToString() } " +
-                        $"- { result.Username } " +
-                        $"- Internal ({ result.IsInternalUser })").Result;                    
+                    var response = googleAnalyticsHelper.TrackEvent("User",
+                        "ID:" + result.Id.ToString(),
+                        $"Internal ({ result.IsInternalUser })").Result;                    
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -70,25 +68,6 @@ namespace PushToGa.Web.Controllers
                 ViewBag.LoginMsg = "Invalid Account";
                 return View("Login");
             }
-        }
-
-        private async Task<string> GetNameInitials(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return string.Empty;
-            }
-
-            string[] nameSplit = name.Trim().Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries);
-            var initials = nameSplit[0].Substring(0, 1).ToUpper();
-
-            if (nameSplit.Length > 1)
-            {
-                initials += nameSplit[nameSplit.Length - 1].Substring(0, 1).ToUpper();
-            }
-            await Task.CompletedTask;
-
-            return initials;
         }
     }
 }

@@ -1,11 +1,75 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Home";
+    ViewData["CurrentPage"] = "Index";
 }
 
 @section Scripts{
+<script>
+    $(document).ready(function () {
+        ga('create', 'UA-206690197-1', 'auto');
+        ga('send', 'pageview');
 
+        $("#btnSend").click(function () {
+            var userId = $("#userId").val();
+            var userName = $("#username").val();
+            var type = $("#optionTypeId option:selected").val();
+            var isInternal = "";
+            if (type == "1")
+                isInternal = "Yes";
+            else
+                isInternal = "No"
+
+            if (userId != null && userId.length > 0) {
+                ga('send', {
+                    hitType: 'event',
+                    eventCategory: 'User',
+                    eventAction: 'ID:' + userId,
+                    eventLabel: "Internal (" + isInternal + ")"
+                });
+
+                alert('Sent');
+            }
+            else
+                alert('Oooops, User ID is not present.');
+        });
+    });
+
+</script>
 }
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section"></h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-5">
+                    <div class="login-wrap p-4 p-md-5">
+                        <h3 class="text-center mb-4">Send To GA4</h3>
+                        <form id="form1" class="login-form">
+                            <div class="form-group">
+                                <input name="UserId" id="userId" type="text" class="form-control rounded-left" placeholder="User ID" required>
+                            </div>
+                            <div class="form-group">
+                                <input name="Username" id="username" type="text" class="form-control rounded-left" placeholder="User Name" required>
+                            </div>
+                            <div class="form-group">                                
+                                <select id="optionTypeId" name="TypeId" class="form-control dropdown">
+                                    <option value="1">Internal</option>
+                                    <option value="2">External</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" id="btnSend" class="form-control btn btn-primary rounded submit px-3">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

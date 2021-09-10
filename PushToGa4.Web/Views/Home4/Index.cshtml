@@ -11,18 +11,13 @@
             var userId = $("#userId").val();
             var userName = $("#username").val();
             var type = $("#optionTypeId option:selected").val();
-            var isInternal = "";
-            if (type == "1")
-                isInternal = "Yes";
-            else
-                isInternal = "No"
 
             if (userId != null && userId.length > 0) {
                 ga('send', {
                     hitType: 'event',
                     eventCategory: 'User',
                     eventAction: 'ID:' + userId,
-                    eventLabel: "Internal (" + isInternal + ")"
+                    eventLabel: type
                 });
 
                 alert('Sent');

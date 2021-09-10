@@ -11,18 +11,13 @@
             var userId = $("#userId").val();
             var userName = $("#username").val();
             var type = $("#optionTypeId option:selected").val();
-            var isInternal = "";
-            if (type == "1")
-                isInternal = "Yes";
-            else
-                isInternal = "No"
 
             if (userId != null && userId.length > 0) {
                 ga('send', {
                     hitType: 'event',
                     eventCategory: 'User',
                     eventAction: 'ID:' + userId,
-                    eventLabel: "Internal (" + isInternal + ")"
+                    eventLabel: type
                 });
 
                 alert('Sent');
@@ -60,8 +55,8 @@
                             </div>
                             <div class="form-group">
                                 <select id="optionTypeId" name="TypeId" class="form-control dropdown">
-                                    <option value="1">Internal</option>
-                                    <option value="2">External</option>
+                                    <option value="Internal">Internal</option>
+                                    <option value="External">External</option>
                                 </select>
                             </div>
                             <div class="form-group">

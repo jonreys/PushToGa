@@ -1,11 +1,11 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutGa3.cshtml";
-    ViewData["Title"] = "Home GA 3";
+    Layout = "~/Views/Shared/_LayoutGa4.cshtml";
+    ViewData["Title"] = "Home GA 4";
     ViewData["CurrentPage"] = "Index";
 }
 
 @section Scripts{
-<script>
+    <script>
     $(document).ready(function () {
         $("#btnSend").click(function () {
             var userId = $("#userId").val();
@@ -32,10 +32,10 @@
         });
     });
 
-</script>
+    </script>
 }
 <div class="text-center">
-    <h1 class="display-4">Welcome GA3</h1>
+    <h1 class="display-4">Welcome GA4</h1>
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">
@@ -54,7 +54,7 @@
                             <div class="form-group">
                                 <input name="Username" id="username" type="text" class="form-control rounded-left" placeholder="User Name" required>
                             </div>
-                            <div class="form-group">                                
+                            <div class="form-group">
                                 <select id="optionTypeId" name="TypeId" class="form-control dropdown">
                                     <option value="1">Internal</option>
                                     <option value="2">External</option>

@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PushToGa.Web", "PushToGa.Web.csproj", "{9A970501-CB43-4608-A623-FAF75EE2A22D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushToGa4.Web", "..\PushToGa4.Web\PushToGa4.Web.csproj", "{579FB622-DB9A-46F3-AD8B-CE4A0C13C93D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PushToGa4.Web", "..\PushToGa4.Web\PushToGa4.Web.csproj", "{579FB622-DB9A-46F3-AD8B-CE4A0C13C93D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9A970501-CB43-4608-A623-FAF75EE2A22D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A970501-CB43-4608-A623-FAF75EE2A22D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A970501-CB43-4608-A623-FAF75EE2A22D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A970501-CB43-4608-A623-FAF75EE2A22D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{579FB622-DB9A-46F3-AD8B-CE4A0C13C93D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{579FB622-DB9A-46F3-AD8B-CE4A0C13C93D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{579FB622-DB9A-46F3-AD8B-CE4A0C13C93D}.Release|Any CPU.ActiveCfg = Release|Any CPU

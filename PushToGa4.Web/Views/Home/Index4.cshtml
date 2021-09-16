@@ -1,12 +1,12 @@
-﻿@{
+﻿@{    
     Layout = "~/Views/Shared/_LayoutGa4.cshtml";
-    ViewData["Title"] = "Index";
-    ViewData["CurrentPage"] = "Index";
+    ViewData["Title"] = "AssetDetails";
+    ViewData["CurrentPage"] = "AssetDetails";
 }
 
 @section Scripts{
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
         $("#btnSend").click(function () {
             var userId = $("#userId").val();
             var userName = $("#username").val();
@@ -21,8 +21,8 @@
             }
             else
                 alert('Oooops, User ID is not present.');
+            });
         });
-    });
 
     </script>
 }

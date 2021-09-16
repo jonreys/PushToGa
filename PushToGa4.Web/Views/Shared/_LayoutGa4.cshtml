@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Push To Ga 4</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
    
@@ -15,6 +15,13 @@
         gtag('js', new Date());
 
         gtag('config', 'G-01JM05KNTW');
+
+        var dataLayer = window.dataLayer = window.dataLayer || [];
+        dataLayer.push({
+            'event': 'pageview',
+            'page_location': window.location.pathname,
+            'page_title': document.title,
+        });
 
     </script>
 </head>

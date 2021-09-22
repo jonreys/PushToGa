@@ -1,5 +1,14 @@
 ﻿$(document).ready(function () {
-    document.title = document.title.substring(0, document.title.lastIndexOf("/"));
+    /// To Get the next string after '/'
+    var location = window.location.href.substring(window.location.href.lastIndexOf("/") + 1);
+    /// Test if the string guid 
+    if (isGuid(location)) {
+        /// If guid = true || Get only the Url without GUID
+        document.title = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+    }
+    else
+        /// If guid = false || Get whole Url
+        document.title = window.location.href;
 
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
@@ -23,3 +32,14 @@
             alert('Oooops, User ID is not present.');
     });
 });
+
+/// Test the string if Guid using Regex
+function isGuid(stringToTest) {
+    if (stringToTest[0] === "{") {
+        stringToTest = stringToTest.substring(1, stringToTest.length - 1);
+    }
+    var regexGuid = /^(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}$/gi;
+    
+    return regexGuid.test(stringToTest);
+}
+

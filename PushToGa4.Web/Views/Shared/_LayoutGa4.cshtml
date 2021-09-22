@@ -6,29 +6,45 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-   
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     @*<script async src="https://www.googletagmanager.com/gtag/js?id=G-XQHL601LVG"></script>
-    <script src="~/js/ga4.js"></script>*@
-    @*<script>
-        /// This will remove the string with last char '/' 
-        document.title = document.title.substring(0, document.title.lastIndexOf("/"));
+        <script src="~/js/ga4.js"></script>*@
+    @*<script>*@
 
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+            @*//var location = window.location.href.substring(document.title.lastIndexOf("/"));
+            //if (isGuid(location)) {
+            //    document.title = window.location.href.substring(0, title.lastIndexOf("/"));
+            //}
+            //else
+            //    document.title = window.location.href;
 
-        gtag('config', 'G-01JM05KNTW');
+            /// This will remove the string with last char '/'
+            //document.title = document.title.substring(0, document.title.lastIndexOf("/"));
 
-        /// This will push to GA4 the page_title & location
-        var dataLayer = window.dataLayer = window.dataLayer || [];
-        dataLayer.push({
-            'event': 'pageview',
-            'page_location': window.location.pathname,
-            'page_title': document.title
-        });
+            //window.dataLayer = window.dataLayer || [];
+            //function gtag() { dataLayer.push(arguments); }
+            //gtag('js', new Date());
 
-    </script>*@
+            //gtag('config', 'G-01JM05KNTW');
+
+            /// This will push to GA4 the page_title & location
+            //var dataLayer = window.dataLayer = window.dataLayer || [];
+            //dataLayer.push({
+            //    'event': 'pageview',
+            //    'page_location': window.location.pathname,
+            //    'page_title': document.title
+            //});
+
+            //function isGuid(stringToTest) {
+            //    if (stringToTest[0] === "{") {
+            //        stringToTest = stringToTest.substring(1, stringToTest.length - 1);
+            //    }
+            //    var regexGuid = /^(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}$/gi;
+            //    return regexGuid.test(stringToTest);
+            //}*@
+
+    @*</script>*@
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -76,8 +92,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XQHL601LVG"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-01JM05KNTW"></script>
     <script src="~/js/ga4.js"></script>
+    @RenderSection("Scripts", required: false)
+
 </body>
 </html>

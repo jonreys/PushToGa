@@ -22,10 +22,10 @@ namespace PushToGa4.Web.Controllers
         {
             return View();
         }
-
+        
         public IActionResult Index4()
         {
-            return View();
+            return RedirectToAction("da595ba3e3f64d779423e059b8a62884", "MyTechnology"); //View();
         }
 
         public IActionResult Privacy()
